@@ -1,8 +1,28 @@
+export const cssUnits: string[] = [
+  "%",
+  "ch",
+  "cm",
+  "em",
+  "ex",
+  "in",
+  "mm",
+  "pc",
+  "pt",
+  "px",
+  "rem",
+  "vh",
+  "vmax",
+  "vmin",
+  "vw"
+];
 
-export function format(first: string, middle: string, last: string): string {
-  return (
-    (first || '') +
-    (middle ? ` ${middle}` : '') +
-    (last ? ` ${last}` : '')
-  );
-}
+export const addCssUnits: (d: string) => string = (d: string) => {
+  if (
+    !cssUnits.some(u => {
+      return d.includes(u);
+    })
+  ) {
+    d += "px"; // default to px
+  }
+  return d;
+};

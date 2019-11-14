@@ -1,21 +1,15 @@
-import { format } from './utils';
+import { addCssUnits } from "./Utils";
 
-describe('format', () => {
-  it('returns empty string for no names defined', () => {
-    expect(format(undefined, undefined, undefined)).toEqual('');
+describe("css units", () => {
+  test("should return a default width in pixels", () => {
+    const width: string = "640";
+    const formatted: string = addCssUnits(width);
+    expect(formatted).toBe("640px");
   });
 
-  it('formats just first names', () => {
-    expect(format('Joseph', undefined, undefined)).toEqual('Joseph');
-  });
-
-  it('formats first and last names', () => {
-    expect(format('Joseph', undefined, 'Publique')).toEqual('Joseph Publique');
-  });
-
-  it('formats first, middle and last names', () => {
-    expect(format('Joseph', 'Quincy', 'Publique')).toEqual(
-      'Joseph Quincy Publique'
-    );
+  test("should return the same percentage width", () => {
+    const width: string = "100%";
+    const formatted: string = addCssUnits(width);
+    expect(formatted).toBe("100%");
   });
 });
