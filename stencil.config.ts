@@ -1,17 +1,21 @@
-import { Config } from '@stencil/core';
+import { Config } from "@stencil/core";
+import nodePolyfills from "rollup-plugin-node-polyfills";
 
 export const config: Config = {
-  namespace: 'uv-ebook-extension',
+  namespace: "uv-ebook-extension",
+  plugins: [
+    nodePolyfills()
+  ],
   outputTargets: [
     {
-      type: 'dist',
-      esmLoaderPath: '../loader'
+      type: "dist",
+      esmLoaderPath: "../loader"
     },
     {
-      type: 'docs-readme'
+      type: "docs-readme"
     },
     {
-      type: 'www',
+      type: "www",
       serviceWorker: null // disable service workers
     }
   ]
