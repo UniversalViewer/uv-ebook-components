@@ -28,13 +28,15 @@ export class UvEbookReader {
   }
 
   private _renderBook() {
-    const book: Book = ePub(this.url);
-    const rendition: Rendition = book.renderTo(this._reader, {
-      width: this.width,
-      height: this.height
-    });
-    rendition.display();
-    // const displayed = rendition.display();
+    if (this.url) {
+      const book: Book = ePub(this.url);
+      const rendition: Rendition = book.renderTo(this._reader, {
+        width: this.width,
+        height: this.height
+      });
+      rendition.display();
+      // const displayed = rendition.display();
+    }
   }
 
   public componentDidLoad() {
