@@ -12,7 +12,7 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
   interface UvEbookReader {
     'height': string;
-    'url': string;
+    'load': (url: string) => Promise<void>;
     'width': string;
   }
 }
@@ -33,7 +33,6 @@ declare global {
 declare namespace LocalJSX {
   interface UvEbookReader {
     'height'?: string;
-    'url'?: string;
     'width'?: string;
   }
 

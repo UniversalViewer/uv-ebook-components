@@ -11,7 +11,15 @@
 </head>
 <body>
 
-  <uv-ebook-reader url="https://s3.amazonaws.com/epubjs/books/alice/OPS/package.opf" width="600px" height="800px"></uv-ebook-reader>
+  <uv-ebook-reader width="600px" height="800px"></uv-ebook-reader>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      var ebookReader = document.querySelector("uv-ebook-reader");
+      ebookReader.load("https://s3.amazonaws.com/epubjs/books/alice/OPS/package.opf");
+    });
+
+  </script>
 
 </body>
 </html>
