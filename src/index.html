@@ -8,6 +8,8 @@
   <script type="module" src="/build/uv-ebook-extension.esm.js"></script>
   <script nomodule src="/build/uv-ebook-extension.js"></script>
 
+  <!-- <script src="https://unpkg.com/jszip@3.2.2/dist/jszip.min.js"></script> -->
+
 </head>
 <body>
 
@@ -16,7 +18,8 @@
   <script>
     window.addEventListener('DOMContentLoaded', (event) => {
       var ebookReader = document.querySelector("uv-ebook-reader");
-      ebookReader.load("https://s3.amazonaws.com/epubjs/books/alice/OPS/package.opf");
+      //ebookReader.load("https://s3.amazonaws.com/epubjs/books/alice/OPS/package.opf");
+      ebookReader.load("https://ebook-test-manifests.netlify.com/collection/cc-shared-culture/cc-shared-culture.epub");
     });
 
   </script>

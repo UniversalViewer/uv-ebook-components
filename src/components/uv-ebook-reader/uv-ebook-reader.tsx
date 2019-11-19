@@ -1,5 +1,7 @@
 import { Component, h, Prop, Method, State } from "@stencil/core";
-import ePub, { Book, Rendition } from "epubjs";
+import ePub, { Book, Rendition } from "@edsilv/epubjs";
+// import ePub, { Book, Rendition } from "../../epub.js";
+// import "../../../node_modules/jszip/lib/";
 import { addCssUnits } from "../../utils/utils";
 
 @Component({
@@ -17,10 +19,12 @@ export class UvEbookReader {
 
   @Method()
   public async load(url: string): Promise<void> {
+    console.log("load");
     this._url = url;
   }
 
   public render() {
+    console.log("render");
     return (
       <div
         id="reader"
@@ -35,6 +39,10 @@ export class UvEbookReader {
 
   private _renderBook() {
     if (this._url) {
+      // const book: Book = ePub(this._url, {
+      //   openAs: "epub",
+      //   encoding: "base64"
+      // });
       const book: Book = ePub(this._url);
       const rendition: Rendition = book.renderTo(this._reader, {
         width: this.width,
