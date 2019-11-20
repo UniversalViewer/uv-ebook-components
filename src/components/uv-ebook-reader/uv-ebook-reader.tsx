@@ -10,9 +10,11 @@ import { addCssUnits } from "../../utils/utils";
   shadow: false
 })
 export class UvEbookReader {
-  private _reader: HTMLDivElement;
+  private _book: any;
+  private _rendition: Rendition;
+  private _viewer: HTMLDivElement;
 
-  @State() private _url: string | null;
+  @State() private _bookPath: string | null;
 
   @Prop() public width: string = "640";
   @Prop() public height: string = "480";
@@ -20,35 +22,57 @@ export class UvEbookReader {
   @Method()
   public async load(url: string): Promise<void> {
     console.log("load");
-    this._url = url;
+    this._bookPath = url;
   }
+
+  private _prevButtonClickedHandler() {
+    if(this._book.package.metadata.direction === "rtl") {
+			this._rendition.next();
+		} else {
+			this._rendition.prev();
+		}
+  }
+
+  private _nextButtonClickedHandler() {
+		if(this._book.package.metadata.direction === "rtl") {
+			this._rendition.prev();
+		} else {
+			this._rendition.next();
+		}
+	}
 
   public render() {
     console.log("render");
     return (
-      <div
-        id="reader"
-        ref={el => (this._reader = el as HTMLDivElement)}
-        style={{
-          width: addCssUnits(this.width),
-          height: addCssUnits(this.height)
-        }}
-      ></div>
+      <div id="main">
+        {/* <div id="titlebar"></div> */}
+        <div id="prev" class="arrow" onClick={() => this._prevButtonClickedHandler()}>&lt;</div>
+        <div
+          id="viewer"
+          ref={el => (this._viewer = el as HTMLDivElement)}
+          style={{
+            width: addCssUnits(this.width),
+            height: addCssUnits(this.height)
+          }}
+        ></div>
+        <div id="next" class="arrow" onClick={() => this._nextButtonClickedHandler()}>&gt;</div>
+      </div>
     );
   }
 
   private _renderBook() {
-    if (this._url) {
+    if (this._bookPath) {
       // const book: Book = ePub(this._url, {
       //   openAs: "epub",
       //   encoding: "base64"
       // });
-      const book: Book = ePub(this._url);
-      const rendition: Rendition = book.renderTo(this._reader, {
+      this._book = ePub(this._bookPath);
+      this._rendition = this._book.renderTo(this._viewer, {
+        flow: "auto",
         width: this.width,
         height: this.height
       });
-      rendition.display();
+      this._rendition.display();
       // const displayed = rendition.display();
     }
   }
