@@ -8,19 +8,43 @@
   <script type="module" src="/build/uv-ebook-extension.esm.js"></script>
   <script nomodule src="/build/uv-ebook-extension.js"></script>
 
-  <!-- <script src="https://unpkg.com/jszip@3.2.2/dist/jszip.min.js"></script> -->
+  <style>
+    #container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+    }
+  </style>
 
 </head>
 <body>
 
-  <uv-ebook-reader width="600px" height="800px"></uv-ebook-reader>
+  <div id="container">
+    <uv-ebook-reader width="100%" height="100%"></uv-ebook-reader>
+  </div>
 
   <script>
+
+    var container, ebookReader;
+
     window.addEventListener('DOMContentLoaded', (event) => {
-      var ebookReader = document.querySelector("uv-ebook-reader");
+      container = document.getElementById("container");
+      ebookReader = document.querySelector("uv-ebook-reader");
       //ebookReader.load("https://s3.amazonaws.com/epubjs/books/alice/OPS/package.opf");
       //ebookReader.load("https://ebook-test-manifests.netlify.com/collection/cc-shared-culture/cc-shared-culture.epub");
       ebookReader.load("https://ebook-test-manifests.netlify.com/collection/moby-dick/moby-dick.epub");
+    });
+
+    function resize() {
+      container.style.height = window.innerHeight + "px";
+      if (ebookReader.resize) {
+        // it's useful to be able to force a resize if the window.onresize event isn't fired
+        //ebookReader.resize();
+      }
+    }
+
+    window.addEventListener("resize", function() {
+      resize();
     });
 
   </script>

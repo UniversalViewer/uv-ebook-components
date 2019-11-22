@@ -13,6 +13,7 @@ export namespace Components {
   interface UvEbookReader {
     'height': string;
     'load': (url: string) => Promise<void>;
+    'resize': () => Promise<void>;
     'width': string;
   }
 }
