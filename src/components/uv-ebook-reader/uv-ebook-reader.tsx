@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, Method, State } from "@stencil/core";
+import { Component, Element, Event, EventEmitter, h, Prop, Method, State } from "@stencil/core";
 import ePub, { Rendition } from "@edsilv/epubjs";
 // import { addCssUnits } from "../../utils/utils";
 import Book from "@edsilv/epubjs/types/book";
@@ -37,6 +37,16 @@ export class UvEbookReader {
   public async resize(): Promise<void> {
     this._rendition.resize(this._viewer.clientWidth, this._viewer.clientHeight);
   }
+
+  @Method()
+  public async display(href: string): Promise<void> {
+    this._rendition.display(href);
+  }
+
+  @Event() public bookReady: EventEmitter;
+  @Event() public loadedMetadata: EventEmitter;
+  @Event() public loadedNavigation: EventEmitter;
+  @Event() public renditionAttached: EventEmitter;
 
   private _prev(): void {
     if (!this._bookReady) { return; }
@@ -133,6 +143,10 @@ export class UvEbookReader {
       this._rendition.themes.select("custom");
       this._rendition.display();
 
+      this._rendition.on("attached", () => {
+        this.renditionAttached.emit();
+      });
+
       this._rendition.on("layout", () => {
         if(this._viewer.clientWidth >= this.minSpreadWidth) {
           this._showDivider = true;
@@ -148,6 +162,15 @@ export class UvEbookReader {
 
       this._book.ready.then(() => {
         this._bookReady = true;
+        this.bookReady.emit();
+      });
+
+      this._book.loaded.metadata.then((metadata) => {
+        this.loadedMetadata.emit(metadata);
+      });
+
+      this._book.loaded.navigation.then((navigation) => {
+        this.loadedNavigation.emit(navigation);
       });
     }
   }

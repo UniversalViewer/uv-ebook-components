@@ -3,16 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  <title>Stencil Component Starter</title>
+  <title>UV Ebook Extension</title>
 
   <script type="module" src="/build/uv-ebook-extension.esm.js"></script>
   <script nomodule src="/build/uv-ebook-extension.js"></script>
 
   <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
     #container {
-      width: 100%;
-      height: 100%;
       display: flex;
+    }
+    #toc {
+      flex: 1;
+      height: 100%;
+      overflow: auto;
+      padding-right: 1rem;
+    }
+    #reader {
+      position: relative;
+      flex: 3;
+      height: 100%;
     }
   </style>
 
@@ -20,7 +34,12 @@
 <body>
 
   <div id="container">
-    <uv-ebook-reader width="100%" height="100%"></uv-ebook-reader>
+    <div id="toc">
+      <uv-ebook-toc></uv-ebook-toc>
+    </div>
+    <div id="reader">
+      <uv-ebook-reader></uv-ebook-reader>
+    </div>
   </div>
 
   <script>
@@ -29,7 +48,22 @@
 
     window.addEventListener('DOMContentLoaded', (event) => {
       container = document.getElementById("container");
+      ebookTOC = document.querySelector("uv-ebook-toc");
       ebookReader = document.querySelector("uv-ebook-reader");
+
+      ebookTOC.addEventListener("itemClicked", function(e) {
+        ebookReader.display(e.detail);
+      }, false);
+
+      // when the rendition is ready, resize it to fit the available space
+      ebookReader.addEventListener("renditionAttached", function(navigation) {
+        resize();
+      }, false);
+
+      ebookReader.addEventListener("loadedNavigation", function(navigation) {
+        ebookTOC.toc = navigation.detail.toc;
+      }, false);
+
       //ebookReader.load("https://s3.amazonaws.com/epubjs/books/alice/OPS/package.opf");
       //ebookReader.load("https://ebook-test-manifests.netlify.com/collection/cc-shared-culture/cc-shared-culture.epub");
       ebookReader.load("https://ebook-test-manifests.netlify.com/collection/moby-dick/moby-dick.epub");
@@ -37,16 +71,12 @@
 
     function resize() {
       container.style.height = window.innerHeight + "px";
-      if (ebookReader.resize) {
-        // it's useful to be able to force a resize if the window.onresize event isn't fired
-        //ebookReader.resize();
-      }
+      ebookReader.resize();
     }
 
     window.addEventListener("resize", function() {
       resize();
     });
-
   </script>
 
 </body>
