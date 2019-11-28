@@ -18,8 +18,6 @@
   z-index: 2;
   position: relative;
   overflow: hidden;
-  font-family: 'Stix', serif !important;
-  font-variant-numeric: oldstyle-nums !important;
 }
 
 /* #viewer.twoup {
