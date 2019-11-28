@@ -7,7 +7,7 @@ import classNames from "classnames";
 
 @Component({
   tag: "uv-ebook-reader",
-  styleUrls: ["normalize.css", "uv-ebook-reader.css"],
+  styleUrls: ["uv-ebook-reader.css"],
   assetsDirs: ["assets"],
   shadow: false
 })
@@ -24,6 +24,7 @@ export class UvEbookReader {
 
   @Prop() public width: string = "100%";
   @Prop() public height: string = "100%";
+  @Prop() public minSpreadWidth: number = 700;
 
   @Element() el: HTMLElement;
 
@@ -34,7 +35,7 @@ export class UvEbookReader {
 
   @Method()
   public async resize(): Promise<void> {
-    this._rendition.resize(this.el.clientWidth, this.el.clientHeight);
+    this._rendition.resize(this._viewer.clientWidth, this._viewer.clientHeight);
   }
 
   private _prev(): void {
@@ -76,6 +77,10 @@ export class UvEbookReader {
       disabled: !this._prevEnabled && !this._bookReady
     });
 
+    const viewerClasses: string = classNames({
+      twoup: this._showDivider
+    });
+
     const nextClasses: string = classNames({
       arrow: true,
       disabled: !this._nextEnabled && !this._bookReady
@@ -94,6 +99,7 @@ export class UvEbookReader {
         </div>
         <div
           id="viewer"
+          class={viewerClasses}
           ref={el => (this._viewer = el as HTMLDivElement)}
         ></div>
         {
@@ -113,22 +119,22 @@ export class UvEbookReader {
 
   private _renderBook(): void {
     if (this._bookPath && !this._rendition) {
-      // const book: Book = ePub(this._url, {
-      //   openAs: "epub",
-      //   encoding: "base64"
-      // });
 
       this._book = ePub(this._bookPath);
+
       this._rendition = this._book.renderTo(this._viewer, {
         flow: "auto",
         width: this.width,
-        height: this.height
+        height: this.height,
+        minSpreadWidth: this.minSpreadWidth
       });
 
+      this._rendition.themes.register("custom", { "*": { "font-family": "'Stix', serif !important", "font-variant-numeric": "oldstyle-nums !important"}});
+      this._rendition.themes.select("custom");
       this._rendition.display();
 
-      this._rendition.on("layout", (props) => {
-        if(props.spread === true) {
+      this._rendition.on("layout", () => {
+        if(this._viewer.clientWidth >= this.minSpreadWidth) {
           this._showDivider = true;
         } else {
           this._showDivider = false;

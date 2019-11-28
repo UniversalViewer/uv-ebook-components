@@ -13,6 +13,7 @@ export namespace Components {
   interface UvEbookReader {
     'height': string;
     'load': (url: string) => Promise<void>;
+    'minSpreadWidth': number;
     'resize': () => Promise<void>;
     'width': string;
   }
@@ -34,6 +35,7 @@ declare global {
 declare namespace LocalJSX {
   interface UvEbookReader {
     'height'?: string;
+    'minSpreadWidth'?: number;
     'width'?: string;
   }
 
