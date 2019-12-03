@@ -8,6 +8,8 @@
   <script type="module" src="/build/uv-ebook-extension.esm.js"></script>
   <script nomodule src="/build/uv-ebook-extension.js"></script>
 
+  <link rel="stylesheet" href="/build/uv-ebook-extension.css" />
+
   <style>
     body {
       margin: 0;
@@ -22,12 +24,17 @@
       height: 100%;
       overflow: auto;
       padding-right: 1rem;
+      font-family: "Stix", serif;
+      padding: 1rem;
     }
     #reader {
       position: relative;
       flex: 3;
       height: 100%;
     }
+    /* uv-ebook-toc {
+      --toc-selected-color: red;
+    } */
   </style>
 
 </head>
@@ -46,7 +53,7 @@
 
     var container, ebookReader;
 
-    window.addEventListener("DOMContentLoaded", (event) => {
+    window.addEventListener("DOMContentLoaded", function(event) {
       container = document.getElementById("container");
       ebookTOC = document.querySelector("uv-ebook-toc");
       ebookReader = document.querySelector("uv-ebook-reader");
@@ -56,12 +63,16 @@
       }, false);
 
       // when the rendition is ready, resize it to fit the available space
-      ebookReader.addEventListener("renditionAttached", function(navigation) {
+      ebookReader.addEventListener("renditionAttached", function(e) {
         resize();
       }, false);
 
-      ebookReader.addEventListener("loadedNavigation", function(navigation) {
-        ebookTOC.toc = navigation.detail.toc;
+      ebookReader.addEventListener("loadedNavigation", function(e) {
+        ebookTOC.toc = e.detail.toc;
+      }, false);
+
+      ebookReader.addEventListener("relocated", function(e) {
+        ebookTOC.selected = e.detail.start.href;
       }, false);
 
       //ebookReader.load("https://s3.amazonaws.com/epubjs/books/alice/OPS/package.opf");

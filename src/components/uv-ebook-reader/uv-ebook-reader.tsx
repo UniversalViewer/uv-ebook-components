@@ -1,4 +1,13 @@
-import { Component, Element, Event, EventEmitter, h, Prop, Method, State } from "@stencil/core";
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  Prop,
+  Method,
+  State
+} from "@stencil/core";
 import ePub, { Rendition } from "@edsilv/epubjs";
 // import { addCssUnits } from "../../utils/utils";
 import Book from "@edsilv/epubjs/types/book";
@@ -44,12 +53,15 @@ export class UvEbookReader {
   }
 
   @Event() public bookReady: EventEmitter;
-  @Event() public loadedMetadata: EventEmitter;
+  @Event() public loadedBookMetadata: EventEmitter;
   @Event() public loadedNavigation: EventEmitter;
+  @Event() public relocated: EventEmitter;
   @Event() public renditionAttached: EventEmitter;
 
   private _prev(): void {
-    if (!this._bookReady) { return; }
+    if (!this._bookReady) {
+      return;
+    }
     if (this._book.package.metadata.direction === Direction.RTL) {
       this._rendition.next();
     } else {
@@ -58,7 +70,9 @@ export class UvEbookReader {
   }
 
   private _next(): void {
-    if (!this._bookReady) { return; }
+    if (!this._bookReady) {
+      return;
+    }
     if (this._book.package.metadata.direction === Direction.RTL) {
       this._rendition.prev();
     } else {
@@ -77,7 +91,6 @@ export class UvEbookReader {
   }
 
   public render(): void {
-
     const dividerClasses: string = classNames({
       show: this._showDivider
     });
@@ -112,24 +125,21 @@ export class UvEbookReader {
           class={viewerClasses}
           ref={el => (this._viewer = el as HTMLDivElement)}
         ></div>
-        {
-          this._nextEnabled ? (
-            <div
-              id="next"
-              class={nextClasses}
-              onClick={e => this._nextButtonClickedHandler(e)}
-            >
-              &gt;
-            </div>
-          ) : null
-        }
+        {this._nextEnabled ? (
+          <div
+            id="next"
+            class={nextClasses}
+            onClick={e => this._nextButtonClickedHandler(e)}
+          >
+            &gt;
+          </div>
+        ) : null}
       </div>
     );
   }
 
   private _renderBook(): void {
     if (this._bookPath && !this._rendition) {
-
       this._book = ePub(this._bookPath);
 
       this._rendition = this._book.renderTo(this._viewer, {
@@ -139,7 +149,12 @@ export class UvEbookReader {
         minSpreadWidth: this.minSpreadWidth
       });
 
-      this._rendition.themes.register("custom", { "*": { "font-family": "'Stix', serif !important", "font-variant-numeric": "oldstyle-nums !important"}});
+      this._rendition.themes.register("custom", {
+        "*": {
+          "font-family": "'Stix', serif !important",
+          "font-variant-numeric": "oldstyle-nums !important"
+        }
+      });
       this._rendition.themes.select("custom");
       this._rendition.display();
 
@@ -148,16 +163,17 @@ export class UvEbookReader {
       });
 
       this._rendition.on("layout", () => {
-        if(this._viewer.clientWidth >= this.minSpreadWidth) {
+        if (this._viewer.clientWidth >= this.minSpreadWidth) {
           this._showDivider = true;
         } else {
           this._showDivider = false;
         }
       });
 
-      this._rendition.on("relocated", (location) => {
+      this._rendition.on("relocated", location => {
         this._prevEnabled = !location.atStart;
         this._nextEnabled = !location.atEnd;
+        this.relocated.emit(location);
       });
 
       this._book.ready.then(() => {
@@ -165,11 +181,11 @@ export class UvEbookReader {
         this.bookReady.emit();
       });
 
-      this._book.loaded.metadata.then((metadata) => {
-        this.loadedMetadata.emit(metadata);
+      this._book.loaded.metadata.then(metadata => {
+        this.loadedBookMetadata.emit(metadata);
       });
 
-      this._book.loaded.navigation.then((navigation) => {
+      this._book.loaded.navigation.then(navigation => {
         this.loadedNavigation.emit(navigation);
       });
     }

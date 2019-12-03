@@ -7,15 +7,47 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default |
-| -------- | --------- | ----------- | -------- | ------- |
-| `height` | `height`  |             | `string` | `"480"` |
-| `width`  | `width`   |             | `string` | `"640"` |
+| Property         | Attribute          | Description | Type     | Default  |
+| ---------------- | ------------------ | ----------- | -------- | -------- |
+| `height`         | `height`           |             | `string` | `"100%"` |
+| `minSpreadWidth` | `min-spread-width` |             | `number` | `700`    |
+| `width`          | `width`            |             | `string` | `"100%"` |
+
+
+## Events
+
+| Event                | Description | Type               |
+| -------------------- | ----------- | ------------------ |
+| `bookReady`          |             | `CustomEvent<any>` |
+| `loadedBookMetadata` |             | `CustomEvent<any>` |
+| `loadedNavigation`   |             | `CustomEvent<any>` |
+| `relocated`          |             | `CustomEvent<any>` |
+| `renditionAttached`  |             | `CustomEvent<any>` |
 
 
 ## Methods
 
+### `display(href: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `load(url: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `resize() => Promise<void>`
 
 
 
