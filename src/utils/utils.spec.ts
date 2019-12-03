@@ -1,4 +1,4 @@
-import { addCssUnits } from "./Utils";
+import { addCssUnits } from "./utils";
 
 describe("css units", () => {
   test("should return a default width in pixels", () => {
