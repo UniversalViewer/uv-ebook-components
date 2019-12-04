@@ -39,7 +39,7 @@
 .arrow {
   position: absolute;
   top: 50%;
-  margin-top: -32px;
+  margin-top: -50px;
   font-size: 64px;
   color: var(--reader-arrow-color);
   font-family: monospace, sans-serif;
