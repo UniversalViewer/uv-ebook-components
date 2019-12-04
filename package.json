@@ -1,7 +1,7 @@
 {
-  "name": "@universalviewer/uv-ebook-extension",
-  "version": "0.0.16",
-  "description": "UV Ebook Extension",
+  "name": "@universalviewer/uv-ebook-components",
+  "version": "0.0.17",
+  "description": "UV Ebook Components",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
@@ -9,7 +9,7 @@
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/uv-ebook-extension/uv-ebook-extension.js",
+  "unpkg": "dist/uv-ebook-components/uv-ebook-components.js",
   "files": [
     "dist/",
     "loader/"

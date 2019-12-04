@@ -33,7 +33,7 @@ export class UvEbookToc {
 
   public render(): void {
     return (
-      <div>
+      <div id="toc">
         <ul>
           {this.toc.map((item: ITOCItem) => {
             return (

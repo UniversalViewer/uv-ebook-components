@@ -2,7 +2,7 @@ import { Config } from "@stencil/core";
 import nodePolyfills from "rollup-plugin-node-polyfills";
 
 export const config: Config = {
-  namespace: "uv-ebook-extension",
+  namespace: "uv-ebook-components",
   plugins: [
     nodePolyfills(),
   ],

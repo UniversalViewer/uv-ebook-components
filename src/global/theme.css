@@ -1,3 +1,8 @@
 :root {
-  --toc-selected-color: #00b0ff;
+  --toc-margin: 0;
+  --toc-padding: 0;
+  --toc-list-style-type: none;
+  --toc-link-color: #4e4e4e;
+  --toc-link-selected-color: #949494;
+  --toc-link-padding: 0.25rem;
 }

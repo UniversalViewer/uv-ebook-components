@@ -1,9 +1,17 @@
-ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
+#toc ul {
+  margin: var(--toc-margin);
+  padding: var(--toc-padding);
+  list-style-type: var(--toc-list-style-type);
 }
 
-ul li.selected a {
-  color: var(--toc-selected-color);
+#toc ul li {
+  padding: var(--toc-link-padding);
+}
+
+#toc ul li a {
+  color: var(--toc-link-color);
+}
+
+#toc ul li.selected a {
+  color: var(--toc-link-selected-color);
 }

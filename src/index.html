@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  <title>UV Ebook Extension</title>
+  <title>UV Ebook Components</title>
 
-  <script type="module" src="/build/uv-ebook-extension.esm.js"></script>
-  <script nomodule src="/build/uv-ebook-extension.js"></script>
+  <script type="module" src="/build/uv-ebook-components.esm.js"></script>
+  <script nomodule src="/build/uv-ebook-components.js"></script>
 
-  <link rel="stylesheet" href="/build/uv-ebook-extension.css" />
+  <link rel="stylesheet" href="/build/uv-ebook-components.css" />
 
   <style>
     body {
@@ -16,45 +16,43 @@
       padding: 0;
       overflow: hidden;
     }
-    #container {
+    #app {
       display: flex;
     }
-    #toc {
+    #left-col {
       flex: 1;
-      height: 100%;
       overflow: auto;
       padding-right: 1rem;
       font-family: "Stix", serif;
       padding: 1rem;
     }
-    #reader {
+    #right-col {
       position: relative;
       flex: 3;
-      height: 100%;
     }
     /* uv-ebook-toc {
-      --toc-selected-color: red;
+      --toc-link-selected-color: red;
     } */
   </style>
 
 </head>
 <body>
 
-  <div id="container">
-    <div id="toc">
+  <div id="app">
+    <div id="left-col">
       <uv-ebook-toc></uv-ebook-toc>
     </div>
-    <div id="reader">
+    <div id="right-col">
       <uv-ebook-reader></uv-ebook-reader>
     </div>
   </div>
 
   <script>
 
-    var container, ebookReader;
+    var app, ebookReader;
 
     window.addEventListener("DOMContentLoaded", function(event) {
-      container = document.getElementById("container");
+      app = document.getElementById("app");
       ebookTOC = document.querySelector("uv-ebook-toc");
       ebookReader = document.querySelector("uv-ebook-reader");
 
@@ -81,7 +79,7 @@
     });
 
     function resize() {
-      container.style.height = window.innerHeight + "px";
+      app.style.height = window.innerHeight + "px";
       ebookReader.resize();
     }
 
