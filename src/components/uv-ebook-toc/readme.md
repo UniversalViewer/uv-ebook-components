@@ -9,6 +9,7 @@
 
 | Property   | Attribute  | Description | Type         | Default |
 | ---------- | ---------- | ----------- | ------------ | ------- |
+| `disabled` | `disabled` |             | `boolean`    | `false` |
 | `selected` | `selected` |             | `string`     | `null`  |
 | `toc`      | --         |             | `ITOCItem[]` | `[]`    |
 

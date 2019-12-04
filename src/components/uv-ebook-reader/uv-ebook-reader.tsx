@@ -3,7 +3,6 @@ import {
   Element,
   Event,
   EventEmitter,
-  getAssetPath ,
   h,
   Prop,
   Method,
@@ -52,7 +51,10 @@ export class UvEbookReader {
   @Method()
   public async resize(): Promise<void> {
     if (this._bookReady) {
-      this._rendition.resize(this._viewer.clientWidth, this._viewer.clientHeight);
+      this._rendition.resize(
+        this._viewer.clientWidth,
+        this._viewer.clientHeight
+      );
     }
   }
 
@@ -100,9 +102,8 @@ export class UvEbookReader {
   }
 
   public render(): void {
-
     const dividerClasses: string = classNames({
-      show: this._showDivider
+      show: this._bookReady && this._showDivider
     });
 
     const prevClasses: string = classNames({
@@ -144,9 +145,11 @@ export class UvEbookReader {
             &gt;
           </div>
         ) : null}
-        {
-          (!this._bookReady) && <div id="loader"><img src={getAssetPath("../../assets/loader.gif")} /></div>
-        }
+        {!this._bookReady && (
+          <div id="spinner">
+            <div class="square" />
+          </div>
+        )}
       </div>
     );
   }
