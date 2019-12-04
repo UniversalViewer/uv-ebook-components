@@ -30,6 +30,17 @@
       position: relative;
       flex: 3;
     }
+    #debug {
+      position: absolute;
+      bottom: 0;
+      overflow: hidden;
+      width: 100%;
+    }
+    #load {
+      float: right;
+      margin: 1rem;
+      font-size: x-large;
+    }
     /* uv-ebook-toc {
       --toc-link-selected-color: red;
     } */
@@ -45,16 +56,28 @@
     <div id="right-col">
       <uv-ebook-reader></uv-ebook-reader>
     </div>
+    <div id="debug">
+      <button id="load">Load</button>
+    </div>
   </div>
 
   <script>
 
-    var app, ebookReader;
+    var app, ebookTOC, ebookReader, load, books, bookIndex;
+
+    books = [
+      "https://ebook-test-manifests.netlify.com/collection/moby-dick/moby-dick.epub",
+      "https://s3.amazonaws.com/epubjs/books/alice/OPS/package.opf",
+      "https://ebook-test-manifests.netlify.com/collection/cc-shared-culture/cc-shared-culture.epub"
+    ];
+
+    bookIndex = 0;
 
     window.addEventListener("DOMContentLoaded", function(event) {
       app = document.getElementById("app");
       ebookTOC = document.querySelector("uv-ebook-toc");
       ebookReader = document.querySelector("uv-ebook-reader");
+      load = document.getElementById("load");
 
       ebookTOC.addEventListener("itemClicked", function(e) {
         ebookReader.display(e.detail);
@@ -62,6 +85,7 @@
 
       // when the rendition is ready, resize it to fit the available space
       ebookReader.addEventListener("renditionAttached", function(e) {
+        ebookTOC.disabled = false;
         resize();
       }, false);
 
@@ -73,10 +97,19 @@
         ebookTOC.selected = e.detail.start.href;
       }, false);
 
-      //ebookReader.load("https://s3.amazonaws.com/epubjs/books/alice/OPS/package.opf");
-      //ebookReader.load("https://ebook-test-manifests.netlify.com/collection/cc-shared-culture/cc-shared-culture.epub");
-      ebookReader.load("https://ebook-test-manifests.netlify.com/collection/moby-dick/moby-dick.epub");
+      load.addEventListener("click", function() {
+        loadBook();
+      }, false);
+
+      loadBook();
+      resize();
     });
+
+    function loadBook() {
+      ebookTOC.disabled = true;
+      ebookReader.load(books[bookIndex]);
+      bookIndex = (bookIndex === books.length - 1) ? 0: bookIndex + 1;
+    }
 
     function resize() {
       app.style.height = window.innerHeight + "px";
@@ -86,6 +119,7 @@
     window.addEventListener("resize", function() {
       resize();
     });
+
   </script>
 
 </body>

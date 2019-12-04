@@ -6,3 +6,8 @@
   --toc-link-selected-color: #949494;
   --toc-link-padding: 0.25rem;
 }
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}

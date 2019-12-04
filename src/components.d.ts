@@ -21,6 +21,7 @@ export namespace Components {
     'width': string;
   }
   interface UvEbookToc {
+    'disabled': boolean;
     'selected': string | null;
     'toc': ITOCItem[];
   }
@@ -58,6 +59,7 @@ declare namespace LocalJSX {
     'width'?: string;
   }
   interface UvEbookToc {
+    'disabled'?: boolean;
     'onItemClicked'?: (event: CustomEvent<any>) => void;
     'selected'?: string | null;
     'toc'?: ITOCItem[];

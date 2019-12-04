@@ -18,6 +18,7 @@ import classNames from "classnames";
 export class UvEbookToc {
   @Prop() public toc: ITOCItem[] = [];
   @Prop({ mutable: true }) public selected: string | null = null;
+  @Prop() public disabled: boolean = false;
 
   @Element() el: HTMLElement;
 
@@ -32,8 +33,12 @@ export class UvEbookToc {
   }
 
   public render(): void {
+    const tocClasses: string = classNames({
+      disabled: this.disabled
+    });
+
     return (
-      <div id="toc">
+      <div id="toc" class={tocClasses}>
         <ul>
           {this.toc.map((item: ITOCItem) => {
             return (

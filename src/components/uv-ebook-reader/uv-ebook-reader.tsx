@@ -3,13 +3,13 @@ import {
   Element,
   Event,
   EventEmitter,
+  getAssetPath ,
   h,
   Prop,
   Method,
   State
 } from "@stencil/core";
 import ePub, { Rendition } from "@edsilv/epubjs";
-// import { addCssUnits } from "../../utils/utils";
 import Book from "@edsilv/epubjs/types/book";
 import { Direction } from "./Direction";
 import classNames from "classnames";
@@ -21,8 +21,8 @@ import classNames from "classnames";
   shadow: false
 })
 export class UvEbookReader {
-  private _book: Book;
-  private _rendition: Rendition;
+  private _book: Book | null = null;
+  private _rendition: Rendition | null = null;
   private _viewer: HTMLDivElement;
 
   @State() private _bookPath: string | null;
@@ -39,12 +39,21 @@ export class UvEbookReader {
 
   @Method()
   public async load(url: string): Promise<void> {
+    if (this._book) {
+      this._book.destroy();
+      this._book = null;
+      this._rendition = null;
+      this._bookReady = false;
+    }
+
     this._bookPath = url;
   }
 
   @Method()
   public async resize(): Promise<void> {
-    this._rendition.resize(this._viewer.clientWidth, this._viewer.clientHeight);
+    if (this._bookReady) {
+      this._rendition.resize(this._viewer.clientWidth, this._viewer.clientHeight);
+    }
   }
 
   @Method()
@@ -91,6 +100,7 @@ export class UvEbookReader {
   }
 
   public render(): void {
+
     const dividerClasses: string = classNames({
       show: this._showDivider
     });
@@ -134,6 +144,9 @@ export class UvEbookReader {
             &gt;
           </div>
         ) : null}
+        {
+          (!this._bookReady) && <div id="loader"><img src={getAssetPath("../../assets/loader.gif")} /></div>
+        }
       </div>
     );
   }
