@@ -60,7 +60,7 @@
 
   <script>
 
-    var app, ebookTOC, ebookReader, load, books, bookIndex;
+    var initialised, app, ebookTOC, ebookReader, load, books, bookIndex;
 
     books = [
       "https://ebook-test-manifests.netlify.com/collection/moby-dick/moby-dick.epub",
@@ -71,6 +71,12 @@
     bookIndex = 0;
 
     function init() {
+
+      if (initialised) {
+        return;
+      }
+
+      initialised = true;
 
       app = document.getElementById("app");
       ebookTOC = document.querySelector("uv-ebook-toc");
