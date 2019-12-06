@@ -60,9 +60,7 @@
 
   <script>
 
-    var ready, app, ebookTOC, ebookReader, load, books, bookIndex;
-
-    ready = false;
+    var app, ebookTOC, ebookReader, load, books, bookIndex;
 
     books = [
       "https://ebook-test-manifests.netlify.com/collection/moby-dick/moby-dick.epub",
@@ -106,10 +104,18 @@
       });
 
       Promise.all(promises).then(function() {
-        loadBook();
-        ready = true;
+        ready();
+      });
+    }
+
+    function ready() {
+      loadBook();
+
+      window.addEventListener("resize", function() {
         resize();
       });
+
+      resize();
     }
 
     function loadBook() {
@@ -119,15 +125,9 @@
     }
 
     function resize() {
-      if (ready) {
-        app.style.height = window.innerHeight + "px";
-        ebookReader.resize();
-      }
+      app.style.height = window.innerHeight + "px";
+      ebookReader.resize();
     }
-
-    window.addEventListener("resize", function() {
-      resize();
-    });
 
   </script>
 
