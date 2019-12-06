@@ -40,7 +40,6 @@ export class UvEbookReader {
 
   @Method()
   public async load(url: string): Promise<void> {
-
     if (this._book) {
       this._book.destroy();
       this._book = null;
@@ -105,7 +104,6 @@ export class UvEbookReader {
   }
 
   public render(): void {
-
     const dividerClasses: string = classNames({
       show: this._bookReady && this._showDivider
     });
@@ -161,7 +159,6 @@ export class UvEbookReader {
   }
 
   private _renderBook(): void {
-
     if (this._bookPath && !this._rendition) {
       this._book = ePub(this._bookPath);
 
@@ -190,7 +187,7 @@ export class UvEbookReader {
         } else {
           this._showDivider = false;
         }
-        this._mobile = (this._viewer.clientWidth <= this.mobileWidth);
+        this._mobile = this._viewer.clientWidth <= this.mobileWidth;
       });
 
       this._rendition.on("relocated", location => {

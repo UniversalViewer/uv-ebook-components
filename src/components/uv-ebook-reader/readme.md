@@ -11,6 +11,7 @@
 | ---------------- | ------------------ | ----------- | -------- | -------- |
 | `height`         | `height`           |             | `string` | `"100%"` |
 | `minSpreadWidth` | `min-spread-width` |             | `number` | `700`    |
+| `mobileWidth`    | `mobile-width`     |             | `number` | `300`    |
 | `width`          | `width`            |             | `string` | `"100%"` |
 
 

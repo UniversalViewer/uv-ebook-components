@@ -118,6 +118,10 @@
       resize();
     }
 
+    window.addEventListener("DOMContentLoaded", function(event) {
+      init();
+    });
+
     function loadBook() {
       ebookTOC.disabled = true;
       ebookReader.load(books[bookIndex]);
