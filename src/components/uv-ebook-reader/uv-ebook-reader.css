@@ -52,6 +52,18 @@
   user-select: none;
 }
 
+.arrow.small {
+  font-size: 50px;
+}
+
+#prev.small {
+  left: 4px;
+}
+
+#next.small {
+  right: 4px;
+}
+
 .arrow:hover {
   color: var(--reader-arrow-hover-color);
 }

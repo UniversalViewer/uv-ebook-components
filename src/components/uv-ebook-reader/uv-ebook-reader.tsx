@@ -27,18 +27,19 @@ export class UvEbookReader {
   @State() private _bookPath: string | null;
   @State() private _bookReady: boolean = false;
   @State() private _prevEnabled: boolean = true;
+  @State() private _mobile: boolean = false;
   @State() private _nextEnabled: boolean = true;
   @State() private _showDivider: boolean = false;
 
   @Prop() public width: string = "100%";
   @Prop() public height: string = "100%";
+  @Prop() public mobileWidth: number = 300;
   @Prop() public minSpreadWidth: number = 700;
 
   @Element() el: HTMLElement;
 
   @Method()
   public async load(url: string): Promise<void> {
-    console.log("load");
 
     if (this._book) {
       this._book.destroy();
@@ -52,8 +53,6 @@ export class UvEbookReader {
 
   @Method()
   public async resize(): Promise<void> {
-    console.log("resize");
-
     if (this._bookReady) {
       this._rendition.resize(
         this._viewer.clientWidth,
@@ -106,7 +105,6 @@ export class UvEbookReader {
   }
 
   public render(): void {
-    console.log("render");
 
     const dividerClasses: string = classNames({
       show: this._bookReady && this._showDivider
@@ -114,7 +112,8 @@ export class UvEbookReader {
 
     const prevClasses: string = classNames({
       arrow: true,
-      disabled: !this._prevEnabled && !this._bookReady
+      disabled: !this._prevEnabled && !this._bookReady,
+      small: this._mobile
     });
 
     const viewerClasses: string = classNames({
@@ -123,7 +122,8 @@ export class UvEbookReader {
 
     const nextClasses: string = classNames({
       arrow: true,
-      disabled: !this._nextEnabled && !this._bookReady
+      disabled: !this._nextEnabled && !this._bookReady,
+      small: this._mobile
     });
 
     return (
@@ -161,7 +161,6 @@ export class UvEbookReader {
   }
 
   private _renderBook(): void {
-    console.log("render book");
 
     if (this._bookPath && !this._rendition) {
       this._book = ePub(this._bookPath);
@@ -191,6 +190,7 @@ export class UvEbookReader {
         } else {
           this._showDivider = false;
         }
+        this._mobile = (this._viewer.clientWidth <= this.mobileWidth);
       });
 
       this._rendition.on("relocated", location => {

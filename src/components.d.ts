@@ -17,6 +17,7 @@ export namespace Components {
     'height': string;
     'load': (url: string) => Promise<void>;
     'minSpreadWidth': number;
+    'mobileWidth': number;
     'resize': () => Promise<void>;
     'width': string;
   }
@@ -51,6 +52,7 @@ declare namespace LocalJSX {
   interface UvEbookReader {
     'height'?: string;
     'minSpreadWidth'?: number;
+    'mobileWidth'?: number;
     'onBookReady'?: (event: CustomEvent<any>) => void;
     'onLoadedBookMetadata'?: (event: CustomEvent<any>) => void;
     'onLoadedNavigation'?: (event: CustomEvent<any>) => void;
