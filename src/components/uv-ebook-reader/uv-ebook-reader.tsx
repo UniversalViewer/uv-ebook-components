@@ -24,6 +24,7 @@ export class UvEbookReader {
   private _book: Book | null = null;
   private _rendition: Rendition | null = null;
   private _viewer: HTMLDivElement;
+  private _href: string | null = null;
 
   @State() private _bookPath: string | null;
   @State() private _bookReady: boolean = false;
@@ -46,6 +47,7 @@ export class UvEbookReader {
       this._book = null;
       this._rendition = null;
       this._bookReady = false;
+      this._href = null;
     }
 
     this._bookPath = url;
@@ -63,11 +65,10 @@ export class UvEbookReader {
 
   @Method()
   public async display(href: string): Promise<void> {
-    waitFor(() => {
-      return this._bookReady;
-    }, () => {
+    if (this._bookReady && this._href !== href) {
+      this._href = href;
       this._rendition.display(href);
-    });
+    }
   }
 
   @Event() public bookReady: EventEmitter;
