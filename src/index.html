@@ -99,6 +99,11 @@
 
       ebookReader.addEventListener("relocated", function(e) {
         ebookTOC.selected = e.detail.start.href;
+        var cfiFragment = "#" + e.detail.start.cfi;
+        if(window.location.hash != cfiFragment) {
+          // Add CFI fragment to the history
+          history.pushState({}, '', cfiFragment);
+        }
       }, false);
 
       load.addEventListener("click", function() {
@@ -127,6 +132,11 @@
     window.addEventListener("DOMContentLoaded", function(event) {
       init();
     });
+
+    window.addEventListener("hashchange", function() {
+      var hash = window.location.hash.slice(1);
+	    ebookReader.display(hash);
+    }, false);
 
     function loadBook() {
       ebookTOC.disabled = true;

@@ -12,6 +12,7 @@ import ePub, { Rendition } from "@edsilv/epubjs";
 import Book from "@edsilv/epubjs/types/book";
 import { Direction } from "./Direction";
 import classNames from "classnames";
+import { waitFor } from "../../utils/utils";
 
 @Component({
   tag: "uv-ebook-reader",
@@ -62,7 +63,11 @@ export class UvEbookReader {
 
   @Method()
   public async display(href: string): Promise<void> {
-    this._rendition.display(href);
+    waitFor(() => {
+      return this._bookReady;
+    }, () => {
+      this._rendition.display(href);
+    });
   }
 
   @Event() public bookReady: EventEmitter;
