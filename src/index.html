@@ -63,8 +63,8 @@
     var initialised, app, ebookTOC, ebookReader, load, books, bookIndex;
 
     books = [
-      "https://ebook-test-manifests.netlify.com/collection/moby-dick/moby-dick.epub",
       "https://s3.amazonaws.com/epubjs/books/alice/OPS/package.opf",
+      "https://ebook-test-manifests.netlify.com/collection/moby-dick/moby-dick.epub",
       "https://ebook-test-manifests.netlify.com/collection/cc-shared-culture/cc-shared-culture.epub"
     ];
 
@@ -141,6 +141,7 @@
     function loadBook() {
       ebookTOC.disabled = true;
       ebookReader.load(books[bookIndex]);
+      //ebookReader.display("epubcfi(/6/10[chapter_002]!/4/2/2[pgepubid00005]/1:0)");
       bookIndex = (bookIndex === books.length - 1) ? 0: bookIndex + 1;
     }
 

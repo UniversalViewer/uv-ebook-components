@@ -65,9 +65,16 @@ export class UvEbookReader {
 
   @Method()
   public async display(href: string): Promise<void> {
-    if (this._bookReady && this._href !== href) {
-      this._href = href;
-      this._rendition.display(href);
+    if (this._href !== href) {
+      waitFor(
+        () => {
+          return this._bookReady;
+        },
+        () => {
+          this._href = href;
+          this._rendition.display(href);
+        }
+      );
     }
   }
 

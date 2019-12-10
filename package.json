@@ -1,6 +1,6 @@
 {
   "name": "@universalviewer/uv-ebook-components",
-  "version": "0.0.25",
+  "version": "0.0.30",
   "description": "UV Ebook Components",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
