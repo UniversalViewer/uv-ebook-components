@@ -114,6 +114,10 @@
         return customElements.whenDefined(customElement.localName);
       });
 
+      // var promises = [ebookReader].map(function(customElement) {
+      //   return customElements.whenDefined(customElement.localName);
+      // });
+
       Promise.all(promises).then(function() {
         ready();
       });
@@ -135,7 +139,7 @@
 
     window.addEventListener("hashchange", function() {
       var hash = window.location.hash.slice(1);
-	    ebookReader.display(hash);
+	    //ebookReader.display(hash);
     }, false);
 
     function loadBook() {

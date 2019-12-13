@@ -36,7 +36,7 @@ export class UvEbookReader {
   @Prop() public width: string = "100%";
   @Prop() public height: string = "100%";
   @Prop() public mobileWidth: number = 300;
-  @Prop() public minSpreadWidth: number = 700;
+  @Prop() public minSpreadWidth: number = 800;
 
   @Element() el: HTMLElement;
 
