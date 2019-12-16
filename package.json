@@ -1,6 +1,6 @@
 {
   "name": "@universalviewer/uv-ebook-components",
-  "version": "0.0.32",
+  "version": "0.0.33",
   "description": "UV Ebook Components",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -39,7 +39,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@edsilv/epubjs": "^0.3.85-debug.10",
+    "@edsilv/epubjs": "^0.3.85-debug.11",
     "classnames": "^2.2.6",
     "jszip": "^3.2.2"
   }

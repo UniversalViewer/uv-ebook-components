@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+
+        <link rel="stylesheet" href="assets/normalize.css" />
+
+    </head>
+    <body>
+      <uv-ebook-reader></uv-ebook-reader>
+
+      <script>
+
+        var initialised, app, ebookTOC, ebookReader, load, books, bookIndex;
+
+        books = [
+          "https://s3.amazonaws.com/epubjs/books/alice/OPS/package.opf",
+          "https://ebook-test-manifests.netlify.com/collection/moby-dick/moby-dick.epub",
+          "https://ebook-test-manifests.netlify.com/collection/cc-shared-culture/cc-shared-culture.epub"
+        ];
+
+        bookIndex = 0;
+
+        function init() {
+
+          if (initialised) {
+            return;
+          }
+
+          initialised = true;
+
+          app = document.getElementById("app");
+          //ebookTOC = document.querySelector("uv-ebook-toc");
+          ebookReader = document.querySelector("uv-ebook-reader");
+          load = document.getElementById("load");
+
+          // ebookTOC.addEventListener("itemClicked", function(e) {
+          //   //ebookReader.display(e.detail);
+          // }, false);
+
+          // when the rendition is ready, resize it to fit the available space
+          ebookReader.addEventListener("renditionAttached", function(e) {
+            //ebookTOC.disabled = false;
+            resize();
+          }, false);
+
+          // ebookReader.addEventListener("loadedNavigation", function(e) {
+          //   ebookTOC.toc = e.detail.toc;
+          // }, false);
+
+          // ebookReader.addEventListener("relocated", function(e) {
+          //   ebookTOC.selected = e.detail.start.href;
+          //   var cfiFragment = "#" + e.detail.start.cfi;
+          //   if(window.location.hash != cfiFragment) {
+          //     // Add CFI fragment to the history
+          //     history.pushState({}, '', cfiFragment);
+          //   }
+          // }, false);
+
+          // load.addEventListener("click", function() {
+          //   loadBook();
+          // }, false);
+
+          var promises = [ebookReader].map(function(customElement) {
+            return customElements.whenDefined(customElement.localName);
+          });
+
+          Promise.all(promises).then(function() {
+            ready();
+          });
+        }
+
+        function ready() {
+          loadBook();
+
+          window.addEventListener("resize", function() {
+            resize();
+          });
+
+          resize();
+        }
+
+        window.addEventListener("DOMContentLoaded", function(event) {
+          init();
+        });
+
+        window.addEventListener("hashchange", function() {
+          var hash = window.location.hash.slice(1);
+          //ebookReader.display(hash);
+        }, false);
+
+        function loadBook() {
+          //ebookTOC.disabled = true;
+          ebookReader.load(books[bookIndex]);
+          //ebookReader.display("epubcfi(/6/10[chapter_002]!/4/2/2[pgepubid00005]/1:0)");
+          bookIndex = (bookIndex === books.length - 1) ? 0: bookIndex + 1;
+        }
+
+        function resize() {
+          //app.style.height = window.innerHeight + "px";
+          ebookReader.resize();
+        }
+
+      </script>
+      <!-- <div id="main">
+
+        <div id="titlebar">
+        </div>
+
+        <div id="divider"></div>
+        <div id="prev" class="arrow">&lt;</div>
+        <div id="viewer"></div>
+        <div id="next" class="arrow">&gt;</div>
+
+        <div id="loader"></div>
+      </div> -->
+    </body>
+
+    <script type="module" src="/build/uv-ebook-components.esm.js" onload="init()"></script>
+    <script nomodule src="/build/uv-ebook-components.js" onload="init()"></script>
+</html>

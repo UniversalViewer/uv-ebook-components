@@ -181,12 +181,12 @@ export class UvEbookReader {
         minSpreadWidth: this.minSpreadWidth
       });
 
-      this._rendition.themes.register("custom", {
-        "*": {
-          "font-family": "'Stix', serif !important",
-          "font-variant-numeric": "oldstyle-nums !important"
-        }
-      });
+      // this._rendition.themes.register("custom", {
+      //   "*": {
+      //     "font-family": "'Stix', serif !important",
+      //     "font-variant-numeric": "oldstyle-nums !important"
+      //   }
+      // });
       this._rendition.themes.select("custom");
       this._rendition.display();
 

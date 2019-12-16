@@ -114,10 +114,6 @@
         return customElements.whenDefined(customElement.localName);
       });
 
-      // var promises = [ebookReader].map(function(customElement) {
-      //   return customElements.whenDefined(customElement.localName);
-      // });
-
       Promise.all(promises).then(function() {
         ready();
       });

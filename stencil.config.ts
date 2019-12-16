@@ -19,5 +19,13 @@ export const config: Config = {
       serviceWorker: null // disable service workers
     }
   ],
+  copy: [
+    {
+      src: "index_fixed.html"
+    },
+    {
+      src: "test.html"
+    }
+  ],
   globalStyle: "src/global/theme.css"
 };
