@@ -8,6 +8,7 @@ import {
 } from "@stencil/core";
 import { ITOCItem } from "./ITOCItem";
 import classNames from "classnames";
+import { removeFragment } from "../../utils/utils";
 
 @Component({
   tag: "uv-ebook-toc",
@@ -33,6 +34,7 @@ export class UvEbookToc {
   }
 
   public render(): void {
+
     const tocClasses: string = classNames({
       disabled: this.disabled
     });
@@ -45,7 +47,7 @@ export class UvEbookToc {
               <li
                 id={item.id}
                 class={classNames({
-                  selected: this.selected === item.href
+                  selected: (this.selected === item.href) || (this.selected && this.selected.indexOf(removeFragment(item.href)) !== -1)
                 })}
               >
                 <a href={item.href} onClick={e => this._itemClickedHandler(e)}>

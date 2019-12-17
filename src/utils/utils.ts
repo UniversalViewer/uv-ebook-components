@@ -27,6 +27,13 @@ export function addCssUnits(d: string): string {
   return d;
 }
 
+export function removeFragment(href: string): string {
+  if (href.indexOf("#") !== -1) {
+    return href.split("#")[0];
+  }
+  return href;
+}
+
 export function waitFor(
   test: () => boolean,
   successCallback: () => void,

@@ -72,7 +72,11 @@ export class UvEbookReader {
         },
         () => {
           this._href = href;
-          this._rendition.display(href);
+          try {
+            this._rendition.display(href);
+          } catch (e) {
+            console.warn("unable to display", href);
+          }
         }
       );
     }
@@ -211,7 +215,7 @@ export class UvEbookReader {
 
       this._book.ready.then(() => {
         this._bookReady = true;
-        this.bookReady.emit();
+        this.bookReady.emit(this._bookPath);
       });
 
       this._book.loaded.metadata.then(metadata => {
