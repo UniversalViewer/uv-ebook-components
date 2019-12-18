@@ -8,8 +8,8 @@ import {
   Method,
   State
 } from "@stencil/core";
-import ePub, { Rendition } from "@edsilv/epubjs";
-import Book from "@edsilv/epubjs/types/book";
+import ePub, { Rendition } from "@universalviewer/epubjs";
+import Book from "@universalviewer/epubjs/types/book";
 import { Direction } from "./Direction";
 import classNames from "classnames";
 import { waitFor } from "../../utils/utils";

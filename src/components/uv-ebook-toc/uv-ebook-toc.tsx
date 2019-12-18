@@ -8,7 +8,7 @@ import {
 } from "@stencil/core";
 import { ITOCItem } from "./ITOCItem";
 import classNames from "classnames";
-import { removeFragment } from "../../utils/utils";
+import { normaliseHref } from "../../utils/utils";
 
 @Component({
   tag: "uv-ebook-toc",
@@ -49,7 +49,7 @@ export class UvEbookToc {
                   selected:
                     this.selected === item.href ||
                     (this.selected &&
-                      this.selected.indexOf(removeFragment(item.href)) !== -1)
+                      this.selected.indexOf(normaliseHref(item.href)) !== -1)
                 })}
               >
                 <a href={item.href} onClick={e => this._itemClickedHandler(e)}>

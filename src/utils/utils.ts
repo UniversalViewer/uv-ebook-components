@@ -27,10 +27,16 @@ export function addCssUnits(d: string): string {
   return d;
 }
 
-export function removeFragment(href: string): string {
-  if (href.indexOf("#") !== -1) {
-    return href.split("#")[0];
+export function normaliseHref(href: string): string {
+
+  if (href.startsWith("../")) {
+    href = href.split("../")[1];
   }
+
+  if (href.indexOf("#") !== -1) {
+    href = href.split("#")[0];
+  }
+
   return href;
 }
 
