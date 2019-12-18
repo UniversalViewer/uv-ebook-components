@@ -1,10 +1,15 @@
-import { newE2EPage, E2EPage, E2EElement, EventSpy } from "@stencil/core/testing";
+import {
+  newE2EPage,
+  E2EPage,
+  E2EElement,
+  EventSpy
+} from "@stencil/core/testing";
 
 describe("uv-ebook-reader", () => {
-
   let page: E2EPage;
   let el: E2EElement;
-  const bookPath: string = "https://ebook-test-manifests.netlify.com/collection/childrens-media-query/childrens-media-query.epub";
+  const bookPath: string =
+    "https://ebook-test-manifests.netlify.com/collection/childrens-media-query/childrens-media-query.epub";
 
   beforeEach(async () => {
     page = await newE2EPage();
