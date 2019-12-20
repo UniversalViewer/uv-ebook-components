@@ -19,6 +19,11 @@ export const config: Config = {
       serviceWorker: null // disable service workers
     }
   ],
+  // testing: {
+  //   browserHeadless: false,
+  //   browserDevtools: true,
+  //   browserSlowMo: 1000
+  // }
   // copy: [
   //   {
   //     src: "test.html"

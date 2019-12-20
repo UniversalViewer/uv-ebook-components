@@ -28,7 +28,6 @@ export function addCssUnits(d: string): string {
 }
 
 export function normaliseHref(href: string): string {
-
   if (href.startsWith("../")) {
     href = href.split("../")[1];
   }

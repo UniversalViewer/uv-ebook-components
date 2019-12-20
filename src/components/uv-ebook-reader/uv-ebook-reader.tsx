@@ -6,7 +6,8 @@ import {
   h,
   Prop,
   Method,
-  State
+  State,
+  Listen
 } from "@stencil/core";
 import ePub, { Rendition } from "@universalviewer/epubjs";
 import Book from "@universalviewer/epubjs/types/book";
@@ -87,6 +88,18 @@ export class UvEbookReader {
   @Event() public loadedNavigation: EventEmitter;
   @Event() public relocated: EventEmitter;
   @Event() public renditionAttached: EventEmitter;
+
+  @Listen("keydown", { target: "window" })
+  handleKeyDown(ev: KeyboardEvent): void {
+    switch (ev.key) {
+      case "ArrowLeft" :
+        this._prev();
+        break;
+      case "ArrowRight" :
+        this._next();
+        break;
+    }
+  }
 
   private _prev(): void {
     if (!this._bookReady) {
@@ -185,13 +198,6 @@ export class UvEbookReader {
         minSpreadWidth: this.minSpreadWidth
       });
 
-      // this._rendition.themes.register("custom", {
-      //   "*": {
-      //     "font-family": "'Stix', serif !important",
-      //     "font-variant-numeric": "oldstyle-nums !important"
-      //   }
-      // });
-      this._rendition.themes.select("custom");
       this._rendition.display();
 
       this._rendition.on("attached", () => {
