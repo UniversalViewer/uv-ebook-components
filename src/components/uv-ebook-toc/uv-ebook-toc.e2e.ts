@@ -1,4 +1,9 @@
-import { newE2EPage, E2EPage, E2EElement, EventSpy } from "@stencil/core/testing";
+import {
+  newE2EPage,
+  E2EPage,
+  E2EElement,
+  EventSpy
+} from "@stencil/core/testing";
 
 describe("uv-ebook-toc", () => {
   let page: E2EPage;
@@ -86,9 +91,13 @@ describe("uv-ebook-toc", () => {
   });
 
   it("should have a toc element", async () => {
-    await page.$eval("uv-ebook-toc", async (elm: any, { toc }) => {
-      elm.toc = toc;
-    }, props);
+    await page.$eval(
+      "uv-ebook-toc",
+      async (elm: any, { toc }) => {
+        elm.toc = toc;
+      },
+      props
+    );
     await page.waitForChanges();
     const toc: E2EElement = await page.find("#toc ul");
     expect(toc).toBeDefined();
@@ -97,9 +106,13 @@ describe("uv-ebook-toc", () => {
   });
 
   it("should emit an itemClicked event and add a selected class", async () => {
-    await page.$eval("uv-ebook-toc", async (elm: any, { toc }) => {
-      elm.toc = toc;
-    }, props);
+    await page.$eval(
+      "uv-ebook-toc",
+      async (elm: any, { toc }) => {
+        elm.toc = toc;
+      },
+      props
+    );
     await page.waitForChanges();
     const toc: E2EElement = await page.find("#toc ul");
     const link: E2EElement = await toc.find("li:first-child a");

@@ -7,13 +7,12 @@ import {
   Prop
 } from "@stencil/core";
 import { ITOCItem } from "./ITOCItem";
-import classNames from "classnames";
 import { normaliseHref } from "../../utils/utils";
 
 @Component({
   tag: "uv-ebook-toc",
-  styleUrls: ["uv-ebook-toc.css"],
-  assetsDirs: ["assets"],
+  styleUrl: "uv-ebook-toc.css",
+  assetsDir: "assets",
   shadow: false
 })
 export class UvEbookToc {
@@ -34,23 +33,21 @@ export class UvEbookToc {
   }
 
   public render(): void {
-    const tocClasses: string = classNames({
-      disabled: this.disabled
-    });
-
     return (
-      <div id="toc" class={tocClasses}>
+      <div id="toc" class={{
+          disabled: this.disabled
+        }}>
         <ul>
           {this.toc.map((item: ITOCItem) => {
             return (
               <li
                 id={item.id}
-                class={classNames({
+                class={{
                   selected:
                     this.selected === item.href ||
                     (this.selected &&
                       this.selected.indexOf(normaliseHref(item.href)) !== -1)
-                })}
+                }}
               >
                 <a href={item.href} onClick={e => this._itemClickedHandler(e)}>
                   {item.label}

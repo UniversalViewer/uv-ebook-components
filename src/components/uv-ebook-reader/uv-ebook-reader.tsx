@@ -12,13 +12,12 @@ import {
 import ePub, { Rendition } from "@universalviewer/epubjs";
 import Book from "@universalviewer/epubjs/types/book";
 import { Direction } from "./Direction";
-import classNames from "classnames";
 import { waitFor } from "../../utils/utils";
 
 @Component({
   tag: "uv-ebook-reader",
-  styleUrls: ["uv-ebook-reader.css"],
-  assetsDirs: ["assets"],
+  styleUrl: "uv-ebook-reader.css",
+  assetsDir: "assets",
   shadow: false
 })
 export class UvEbookReader {
@@ -92,10 +91,10 @@ export class UvEbookReader {
   @Listen("keydown", { target: "window" })
   handleKeyDown(ev: KeyboardEvent): void {
     switch (ev.key) {
-      case "ArrowLeft" :
+      case "ArrowLeft":
         this._prev();
         break;
-      case "ArrowRight" :
+      case "ArrowRight":
         this._next();
         break;
     }
@@ -134,46 +133,39 @@ export class UvEbookReader {
   }
 
   public render(): void {
-    const dividerClasses: string = classNames({
-      show: this._bookReady && this._showDivider
-    });
-
-    const prevClasses: string = classNames({
-      arrow: true,
-      disabled: !this._prevEnabled && !this._bookReady,
-      small: this._mobile
-    });
-
-    const viewerClasses: string = classNames({
-      twoup: this._showDivider
-    });
-
-    const nextClasses: string = classNames({
-      arrow: true,
-      disabled: !this._nextEnabled && !this._bookReady,
-      small: this._mobile
-    });
 
     return (
       <div id="main">
         <div id="titlebar"></div>
-        <div id="divider" class={dividerClasses}></div>
+        <div id="divider" class={{
+          show: this._bookReady && this._showDivider
+        }}></div>
         <div
           id="prev"
-          class={prevClasses}
+          class={{
+            arrow: true,
+            disabled: !this._prevEnabled && !this._bookReady,
+            small: this._mobile
+          }}
           onClick={e => this._prevButtonClickedHandler(e)}
         >
           &lt;
         </div>
         <div
           id="viewer"
-          class={viewerClasses}
+          class={{
+            twoup: this._showDivider
+          }}
           ref={el => (this._viewer = el as HTMLDivElement)}
         ></div>
         {this._nextEnabled ? (
           <div
             id="next"
-            class={nextClasses}
+            class={{
+              arrow: true,
+              disabled: !this._nextEnabled && !this._bookReady,
+              small: this._mobile
+            }}
             onClick={e => this._nextButtonClickedHandler(e)}
           >
             &gt;
@@ -188,7 +180,7 @@ export class UvEbookReader {
     );
   }
 
-  private _renderBook(): void {
+  public componentDidUpdate(): void {
     if (this._bookPath && !this._rendition) {
       this._book = ePub(this._bookPath);
 
@@ -232,9 +224,5 @@ export class UvEbookReader {
         this.loadedNavigation.emit(navigation);
       });
     }
-  }
-
-  public componentDidUpdate(): void {
-    this._renderBook();
   }
 }

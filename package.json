@@ -40,7 +40,6 @@
   "license": "MIT",
   "dependencies": {
     "@universalviewer/epubjs": "^0.3.85-uv.16",
-    "classnames": "^2.2.6",
     "jszip": "^3.2.2"
   }
 }
