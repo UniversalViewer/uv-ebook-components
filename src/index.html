@@ -99,6 +99,10 @@
         ebookTOC.toc = e.detail.toc;
       }, false);
 
+      ebookReader.addEventListener("bookReady", function(e) {
+        console.log(ebookReader.getBook());
+      }, false);
+
       ebookReader.addEventListener("relocated", function(e) {
         ebookTOC.selected = e.detail.start.href;
         var cfiFragment = "#" + e.detail.start.cfi;
