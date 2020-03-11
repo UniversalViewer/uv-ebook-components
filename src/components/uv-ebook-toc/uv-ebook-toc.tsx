@@ -34,9 +34,12 @@ export class UvEbookToc {
 
   public render(): void {
     return (
-      <div id="toc" class={{
+      <div
+        id="toc"
+        class={{
           disabled: this.disabled
-        }}>
+        }}
+      >
         <ul>
           {this.toc.map((item: ITOCItem) => {
             return (

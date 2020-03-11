@@ -84,8 +84,7 @@ export class UvEbookReader {
 
   @Method()
   public async getBook(): Promise<any> {
-    if (!this._bookReady) 
-      throw "Book is not ready yet.";
+    if (!this._bookReady) throw "Book is not ready yet.";
 
     return this._book;
   }
@@ -141,13 +140,15 @@ export class UvEbookReader {
   }
 
   public render(): void {
-
     return (
       <div id="main">
         <div id="titlebar"></div>
-        <div id="divider" class={{
-          show: this._bookReady && this._showDivider
-        }}></div>
+        <div
+          id="divider"
+          class={{
+            show: this._bookReady && this._showDivider
+          }}
+        ></div>
         <div
           id="prev"
           class={{

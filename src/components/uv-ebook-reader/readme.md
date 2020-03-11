@@ -38,6 +38,16 @@ Type: `Promise<void>`
 
 
 
+### `getBook() => Promise<any>`
+
+
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
 ### `load(url: string) => Promise<void>`
 
 
