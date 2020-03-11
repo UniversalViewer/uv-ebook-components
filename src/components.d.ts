@@ -14,6 +14,7 @@ import {
 export namespace Components {
   interface UvEbookReader {
     'display': (href: string) => Promise<void>;
+    'getBook': () => Promise<any>;
     'height': string;
     'load': (url: string) => Promise<void>;
     'minSpreadWidth': number;

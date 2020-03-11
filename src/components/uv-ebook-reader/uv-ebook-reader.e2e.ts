@@ -29,4 +29,11 @@ describe("uv-ebook-reader", () => {
     await page.waitForEvent("bookReady");
     expect(bookReady).toHaveReceivedEventDetail(bookPath);
   });
+
+  // it("should return book object after bookReady event", async () =>{
+  //   await page.spyOnEvent("bookReady");
+  //   await el.callMethod("load", bookPath);
+  //   await page.waitForEvent("bookReady");
+  //   var book = await el.callMethod("getBook");
+  // })
 });

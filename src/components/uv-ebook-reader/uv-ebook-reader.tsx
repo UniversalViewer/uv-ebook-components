@@ -82,6 +82,14 @@ export class UvEbookReader {
     }
   }
 
+  @Method()
+  public async getBook(): Promise<any> {
+    if (!this._bookReady) 
+      throw "Book is not ready yet.";
+
+    return this._book;
+  }
+
   @Event() public bookReady: EventEmitter;
   @Event() public loadedBookMetadata: EventEmitter;
   @Event() public loadedNavigation: EventEmitter;
