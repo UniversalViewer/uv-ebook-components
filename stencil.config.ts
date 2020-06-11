@@ -1,11 +1,15 @@
 import { Config } from "@stencil/core";
-import nodePolyfills from "rollup-plugin-node-polyfills";
+//import nodePolyfills from "rollup-plugin-node-polyfills";
 
 export const config: Config = {
   namespace: "uv-ebook-components",
-  plugins: [
-    nodePolyfills(),
-  ],
+  taskQueue: "async",
+  // plugins: [
+  //   nodePolyfills(),
+  // ],
+  nodeResolve: {
+    preferBuiltins: true
+  },
   outputTargets: [
     {
       type: "dist",
