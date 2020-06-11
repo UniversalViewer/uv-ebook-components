@@ -39,7 +39,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@universalviewer/epubjs": "^0.3.85-uv.16",
+    "@universalviewer/epubjs": "^0.3.85-uv.17",
     "jszip": "^3.2.2"
   }
 }
