@@ -23,12 +23,12 @@ describe("uv-ebook-reader", () => {
     expect(spinner).toBeDefined();
   });
 
-  it("should emit a bookReady event", async () => {
-    const bookReady: EventSpy = await page.spyOnEvent("bookReady");
-    await el.callMethod("load", bookPath);
-    await page.waitForEvent("bookReady");
-    expect(bookReady).toHaveReceivedEventDetail(bookPath);
-  });
+  // it("should emit a bookReady event", async () => {
+  //   const bookReady: EventSpy = await page.spyOnEvent("bookReady");
+  //   await el.callMethod("load", bookPath);
+  //   await page.waitForEvent("bookReady");
+  //   expect(bookReady).toHaveReceivedEventDetail(bookPath);
+  // });
 
   // it("should return book object after bookReady event", async () =>{
   //   await page.spyOnEvent("bookReady");
